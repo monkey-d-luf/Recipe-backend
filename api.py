@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
+import os
 
 app = FastAPI()
 
@@ -12,8 +13,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient(os.getenv("MONGO_URI"))
+# client = MongoClient("mongodb://localhost:27017/")
 db = client["recipe_db"]
 collection = db["recipes"]
 
